@@ -1,18 +1,17 @@
-import { Container, Sprite, Ticker } from "pixi.js";
-
-import { Coordinates } from "./types/coordinates";
+import { Container, Ticker } from "pixi.js";
+import { Group, Tween } from "tweedle.js";
 
 import { ParticleSprite } from "./ParticleSprite";
 import { RocketSprite } from "./RocketSprite";
+import { Coordinates } from "./types/coordinates";
 
 export class Rocket extends Container {
-  private _particles: Sprite[];
+  // private _particles: Sprite[];
   private _sprite: any;
-  private _speed: number;
+  private _duration: number;
   private _finalPosition: Coordinates;
 
   constructor(
-    scene: Container,
     center: Coordinates,
     start: Coordinates,
     duration: number,
@@ -21,71 +20,47 @@ export class Rocket extends Container {
   ) {
     super();
 
-    this._particles = [];
-    this._speed = duration / 1000;
+    // this._particles = [];
+    this._duration = duration;
 
-    const rocket = new RocketSprite(
-      center,
-      start,
-      colour,
-      velocity,
-      this._speed
-    );
+    const rocket = new RocketSprite(center, start, colour, velocity);
     this._finalPosition = rocket.finalPosition;
     this._sprite = rocket.sprite;
 
-    this.addChild(this._sprite);
-
-    Ticker.shared.add(this.updateRocketFirework, this);
-
-    scene.addChild(this);
-  }
-
-  moveRocket() {
-    this._sprite.position.x -= this._speed;
-    this._sprite.position.y -= this._speed;
+    Ticker.shared.add(this.update, this);
   }
 
   explodeRocket() {
-    this.removeChild(this._sprite);
+    const particle = new ParticleSprite(this._finalPosition, this._sprite.tint);
+    this.addChild(particle.sprite);
 
-    if (this._particles.length < 10) {
-      const particle = new ParticleSprite({
-        x: this._finalPosition.x,
-        y: this._finalPosition.y,
-      });
+    /*
+    I don't know how to move this correctly but
+    I know I need to create some particles and
+    move them around the finalPosition.
+    
+    this._particles.push(particle.sprite);
+    */
 
-      this._particles.push(particle.sprite);
-    }
-
-    console.log(this._particles);
-
-    // if (this._shouldExplode) {
-    //   this._sprites.splice(0, 1);
-
-    //   for (let i = -5; i < 11; i++) {
-    //     const particle = new ParticleSprite({
-    //       x: this._finalPosition.x + i * 10,
-    //       y: this._finalPosition.y + i * 10,
-    //     });
-
-    //     this._sprites.push(particle.sprite);
-    //     console.log(this._sprites);
-    //     this.addChild(particle.sprite);
-    //   }
-    // } else {
+    setTimeout(() => {
+      this.removeChild(particle.sprite);
+    }, 1000);
   }
 
-  updateRocketFirework(): void {
-    const xFinalAchieved = this._sprite.position.x <= this._finalPosition.x;
-    const yFinalAchieved = this._sprite.position.y <= this._finalPosition.y;
+  moveFirework(): void {
+    this.addChild(this._sprite);
 
-    if (xFinalAchieved && yFinalAchieved) {
-      if (this._particles.length < 10) {
+    new Tween(this._sprite.position)
+      .to(this._finalPosition, this._duration)
+      .onComplete(() => {
+        this.removeChild(this._sprite);
+
         this.explodeRocket();
-      }
-    } else {
-      this.moveRocket();
-    }
+      })
+      .start();
+  }
+
+  private update(): void {
+    Group.shared.update();
   }
 }

@@ -1,49 +1,44 @@
-import { Container, Sprite, Texture, Ticker } from "pixi.js";
+import { Container, Ticker } from "pixi.js";
+import { Group, Tween } from "tweedle.js";
 
+import { FountainSprite } from "./FountainSprite";
 import { Coordinates } from "./types/coordinates";
 
 export class Fountain extends Container {
   private _sprite: any;
-  private _speed: number;
+  private _duration: number;
   private _finalPosition: Coordinates;
 
   constructor(
-    scene: Container,
     center: Coordinates,
     start: Coordinates,
     duration: number,
     colour: number
-    // velocity: Coordinates
   ) {
     super();
+    console.log("aa");
 
-    this._speed = duration / 1000;
-    this._finalPosition = { x: 0, y: 0 };
+    this._duration = duration;
 
-    const TEXTURE = Texture.from("public/fountain.png");
-    const fountain = Sprite.from(TEXTURE);
-    fountain.tint = colour;
-    fountain.position.set(center.x, center.y);
-    fountain.anchor.set(0.5);
+    const fountain = new FountainSprite(center, start, colour, duration);
+    this._sprite = fountain.sprite;
+    this._finalPosition = fountain.finalPosition;
 
-    this._sprite = fountain;
-
-    Ticker.shared.add(this.updateFirework, this);
-
-    // this.addChild(this._sprite);
-    // scene.addChild(this);
+    Ticker.shared.add(this.update, this);
   }
 
-  updateFirework(): void {
-    this._sprite.position.x -= this._speed;
-    this._sprite.position.y -= this._speed;
-    this._sprite.alpha -= 0.01;
+  moveFirework(): void {
+    this.addChild(this._sprite);
 
-    const xFinalAchieved = this._sprite.position.x <= this._finalPosition.x;
-    const yFinalAchieved = this._sprite.position.y <= this._finalPosition.y;
+    new Tween(this._sprite.position)
+      .to(this._finalPosition, this._duration)
+      .onComplete(() => {
+        this.removeChild(this._sprite);
+      })
+      .start();
+  }
 
-    if (xFinalAchieved && yFinalAchieved) {
-      this.removeChild(this._sprite);
-    }
+  update(): void {
+    Group.shared.update();
   }
 }
