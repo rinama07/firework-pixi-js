@@ -1,7 +1,7 @@
 import { Container, Ticker } from "pixi.js";
 import { Group, Tween } from "tweedle.js";
 
-import { FountainSprite } from "./FountainSprite";
+import { FountainSprite } from "./sprites/FountainSprite";
 import { Coordinates } from "./types/coordinates";
 
 export class Fountain extends Container {

@@ -1,14 +1,14 @@
 import { Container } from "pixi.js";
 
-import { Coordinates } from "./types/coordinates";
+import { Coordinates } from "../types/coordinates";
 import {
   getFountainProperties,
   getRocketProperties,
   getType,
-} from "./utils/getElementAttribute";
+} from "./getElementAttribute";
 
-import { Fountain } from "./Fountain";
-import { Rocket } from "./Rocket";
+import { Fountain } from "../Fountain";
+import { Rocket } from "../Rocket";
 
 export function launchFireworks(
   xmlFireworks: Element[],

@@ -1,8 +1,8 @@
 import { Container, Ticker } from "pixi.js";
 import { Group, Tween } from "tweedle.js";
 
-import { ParticleSprite } from "./ParticleSprite";
-import { RocketSprite } from "./RocketSprite";
+import { ParticleSprite } from "./sprites/ParticleSprite";
+import { RocketSprite } from "./sprites/RocketSprite";
 import { Coordinates } from "./types/coordinates";
 
 export class Rocket extends Container {

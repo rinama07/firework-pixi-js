@@ -1,10 +1,10 @@
 import { Application, Container } from "pixi.js";
 
-import { launchFireworks } from "./launchFireworks";
 import { Coordinates } from "./types/coordinates";
 import { getFireworksXmlText } from "./utils/getFireworksXmlText";
+import { launchFireworks } from "./utils/launchFireworks";
 
-import "./style.css";
+import "./styles/global.css";
 
 const app = new Application({
   height: 768,

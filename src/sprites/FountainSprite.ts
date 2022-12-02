@@ -1,6 +1,6 @@
 import { Sprite, Texture } from "pixi.js";
 
-import { Coordinates } from "./types/coordinates";
+import { Coordinates } from "../types/coordinates";
 
 export class FountainSprite {
   private _finalPosition: Coordinates;
