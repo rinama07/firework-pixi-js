@@ -16,7 +16,6 @@ export class Fountain extends Container {
     colour: number
   ) {
     super();
-    console.log("aa");
 
     this._duration = duration;
 
