@@ -1,5 +1,5 @@
 import { FIREWORK_TAG_NAME } from "../constants";
-import { FIREWORKS_XML_PATH } from "../constants/path";
+import { FIREWORKS_XML_PATH } from "../constants/files";
 
 function getDocumentFromXml(xml: string): Document {
   const parser = new DOMParser();

@@ -1,6 +1,6 @@
 import { Sprite, Texture } from "pixi.js";
 
-import { PARTICLE_TEXTURE_PATH } from "../constants/path";
+import { PARTICLE_TEXTURE_PATH } from "../constants/files";
 import { Coordinates } from "../types/coordinates";
 
 export class ParticleSprite {

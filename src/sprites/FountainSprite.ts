@@ -1,6 +1,6 @@
 import { Sprite, Texture } from "pixi.js";
 
-import { FOUNTAIN_TEXTURE_PATH } from "../constants/path";
+import { FOUNTAIN_TEXTURE_PATH } from "../constants/files";
 import { Coordinates } from "../types/coordinates";
 
 export class FountainSprite {
