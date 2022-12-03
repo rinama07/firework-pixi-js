@@ -1,14 +1,11 @@
 import { Container } from "pixi.js";
 
-import { Coordinates } from "../types/coordinates";
-import {
-  getFountainProperties,
-  getRocketProperties,
-  getType,
-} from "./getElementAttribute";
-
 import { Fountain } from "../Fountain";
 import { Rocket } from "../Rocket";
+import { Coordinates } from "../types/coordinates";
+import { getType } from "./getElementProperty";
+import { getFountain } from "./getFountain";
+import { getRocket } from "./getRocket";
 
 export function launchFireworks(
   xmlFireworks: Element[],
@@ -19,7 +16,7 @@ export function launchFireworks(
     const type = getType(xmlFirework);
 
     if (type === "Fountain") {
-      const fountain = getFountainProperties(xmlFirework);
+      const fountain = getFountain(xmlFirework);
 
       setTimeout(() => {
         const fountainFirework = new Fountain(
@@ -33,7 +30,7 @@ export function launchFireworks(
         fountainFirework.moveFirework();
       }, fountain.beginAt);
     } else if (type === "Rocket") {
-      const rocket = getRocketProperties(xmlFirework);
+      const rocket = getRocket(xmlFirework);
 
       setTimeout(() => {
         const rocketFirework = new Rocket(

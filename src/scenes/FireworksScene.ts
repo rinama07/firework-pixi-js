@@ -1,11 +1,9 @@
 import { Container } from "pixi.js";
 
 import { Coordinates } from "../types/coordinates";
-import {
-  getFountainProperties,
-  getRocketProperties,
-  getType,
-} from "../utils/getElementAttribute";
+import { getType } from "../utils/getElementProperty";
+import { getFountain } from "../utils/getFountain";
+import { getRocket } from "../utils/getRocket";
 
 import { Fountain } from "../Fountain";
 import { Rocket } from "../Rocket";
@@ -52,7 +50,7 @@ export class FireworksScene extends Container {
   }
 
   launchFountain(xmlFirework: Element): void {
-    const fountain = getFountainProperties(xmlFirework);
+    const fountain = getFountain(xmlFirework);
 
     setTimeout(() => {
       const fountainFirework = new Fountain(
@@ -68,7 +66,7 @@ export class FireworksScene extends Container {
   }
 
   launchRocket(xmlFirework: Element): void {
-    const rocket = getRocketProperties(xmlFirework);
+    const rocket = getRocket(xmlFirework);
 
     setTimeout(() => {
       const rocketFirework = new Rocket(
