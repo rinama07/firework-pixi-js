@@ -1,7 +1,7 @@
 import { Application, Container } from "pixi.js";
 
+import { fetchXmlFireworks } from "./server/fetchXmlFireworks";
 import { Coordinates } from "./types/coordinates";
-import { getFireworksXmlText } from "./utils/getFireworksXmlText";
 import { launchFireworks } from "./utils/launchFireworks";
 
 import "./styles/global.css";
@@ -22,6 +22,6 @@ const screenCenter: Coordinates = {
   y: Math.floor(app.screen.height / 2),
 };
 
-getFireworksXmlText((xmlFireworks: Element[]) => {
+fetchXmlFireworks((xmlFireworks: Element[]): void => {
   launchFireworks(xmlFireworks, scene, screenCenter);
 });
