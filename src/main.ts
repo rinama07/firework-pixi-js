@@ -1,8 +1,7 @@
-import { Application, Container } from "pixi.js";
+import { Application } from "pixi.js";
 
+import { FireworksScene } from "./scenes/FireworksScene";
 import { fetchXmlFireworks } from "./server/fetchXmlFireworks";
-import { Coordinates } from "./types/coordinates";
-import { launchFireworks } from "./utils/launchFireworks";
 
 import "./styles/global.css";
 
@@ -14,14 +13,12 @@ const app = new Application({
 const appElement = document.getElementById("app") as HTMLDivElement;
 appElement.appendChild(app.view as HTMLCanvasElement);
 
-const scene = new Container();
-app.stage.addChild(scene);
-
-const screenCenter: Coordinates = {
-  x: Math.floor(app.screen.width / 2),
-  y: Math.floor(app.screen.height / 2),
-};
-
 fetchXmlFireworks((xmlFireworks: Element[]): void => {
-  launchFireworks(xmlFireworks, scene, screenCenter);
+  const scene = new FireworksScene(
+    app.screen.height,
+    app.screen.width,
+    xmlFireworks
+  );
+
+  app.stage.addChild(scene);
 });
