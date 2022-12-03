@@ -1,5 +1,6 @@
 import { Sprite, Texture } from "pixi.js";
 
+import { FOUNTAIN_TEXTURE_PATH } from "../constants/path";
 import { Coordinates } from "../types/coordinates";
 
 export class FountainSprite {
@@ -12,7 +13,7 @@ export class FountainSprite {
     colour: number,
     duration: number
   ) {
-    const TEXTURE = Texture.from("public/fountain.png");
+    const TEXTURE = Texture.from(FOUNTAIN_TEXTURE_PATH);
 
     const speed = duration / 100;
 

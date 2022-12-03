@@ -1,12 +1,13 @@
 import { Sprite, Texture } from "pixi.js";
 
-import { Coordinates } from "./types/coordinates";
+import { PARTICLE_TEXTURE_PATH } from "../constants/path";
+import { Coordinates } from "../types/coordinates";
 
 export class ParticleSprite {
   private _sprite: Sprite;
 
   constructor(startsOn: Coordinates, colour: number) {
-    const TEXTURE = Texture.from("public/particle.png");
+    const TEXTURE = Texture.from(PARTICLE_TEXTURE_PATH);
 
     this._sprite = Sprite.from(TEXTURE);
     this._sprite.anchor.set(0.5);

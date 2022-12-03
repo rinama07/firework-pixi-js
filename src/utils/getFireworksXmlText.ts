@@ -1,8 +1,9 @@
-const FIREWORKS_XML_PATH = "fireworks.xml";
+import { FIREWORK_TAG_NAME } from "../constants";
+import { FIREWORKS_XML_PATH } from "../constants/path";
 
 function formatXmlToFireworks(xml: string): Element[] {
   const xmlText = new DOMParser().parseFromString(xml, "text/xml");
-  const xmlFireworks = xmlText.getElementsByTagName("Firework");
+  const xmlFireworks = xmlText.getElementsByTagName(FIREWORK_TAG_NAME);
 
   return Array.from(xmlFireworks);
 }

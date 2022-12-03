@@ -1,6 +1,7 @@
 import { Sprite, Texture } from "pixi.js";
 
-import { Coordinates } from "./types/coordinates";
+import { ROCKET_TEXTURE_PATH } from "../constants/path";
+import { Coordinates } from "../types/coordinates";
 
 export class RocketSprite {
   private _finalPosition: Coordinates;
@@ -12,7 +13,7 @@ export class RocketSprite {
     colour: number,
     velocity: Coordinates
   ) {
-    const TEXTURE = Texture.from("public/rocket.png");
+    const TEXTURE = Texture.from(ROCKET_TEXTURE_PATH);
 
     this._sprite = Sprite.from(TEXTURE);
     this._sprite.tint = colour;
