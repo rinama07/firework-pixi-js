@@ -65,21 +65,21 @@ export class Rocket extends Container {
   }
 
   private moveRocket(): void {
-    const xInFinalPosition = this._finalPosition.x === this.position.x;
-    const yInFinalPosition = this._finalPosition.y === this.position.y;
+    // rockets from left does not explode, why?
+    const xInFinalPosition = this._finalPosition.x >= this.position.x;
+    const yInFinalPosition = this._finalPosition.y >= this.position.y;
 
     if (xInFinalPosition && yInFinalPosition) {
       this.removeChildAt(0);
       this._shouldExplode = true;
-      return;
-    }
+    } else {
+      if (this._velocity.x) {
+        this.position.x -= this._velocity.x > 0 ? -5 : 5;
+      }
 
-    if (this._velocity.x) {
-      this.position.x -= 5;
-    }
-
-    if (this._velocity.y) {
-      this.position.y -= 5;
+      if (this._velocity.y) {
+        this.position.y -= 5;
+      }
     }
   }
 
