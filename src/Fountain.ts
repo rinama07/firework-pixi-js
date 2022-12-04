@@ -1,43 +1,24 @@
-import { Container, Ticker } from "pixi.js";
-import { Group, Tween } from "tweedle.js";
+import { Container } from "pixi.js";
 
 import { FountainSprite } from "./sprites/FountainSprite";
 import { Coordinates } from "./types/coordinates";
 
 export class Fountain extends Container {
-  private _sprite: any;
-  private _duration: number;
-  private _finalPosition: Coordinates;
-
   constructor(
     center: Coordinates,
     start: Coordinates,
-    duration: number,
+    duration: number, // I don't know how to use this yet
     colour: number
   ) {
     super();
 
-    this._duration = duration;
+    this.position.x = center.x + start.x;
+    this.position.y = center.y + start.y * -1;
 
-    const fountain = new FountainSprite(center, start, colour, duration);
-    this._sprite = fountain.sprite;
-    this._finalPosition = fountain.finalPosition;
+    for (let i = 0; i < 10; i++) {
+      const fountain = new FountainSprite(colour);
 
-    Ticker.shared.add(this.update, this);
-  }
-
-  moveFirework(): void {
-    this.addChild(this._sprite);
-
-    new Tween(this._sprite.position)
-      .to(this._finalPosition, this._duration)
-      .onComplete(() => {
-        this.removeChild(this._sprite);
-      })
-      .start();
-  }
-
-  update(): void {
-    Group.shared.update();
+      this.addChild(fountain);
+    }
   }
 }
