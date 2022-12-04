@@ -61,7 +61,6 @@ export class FireworksScene extends Container {
       );
 
       this.addChild(fountainFirework);
-      fountainFirework.moveFirework();
     }, fountain.beginAt);
   }
 
@@ -71,14 +70,13 @@ export class FireworksScene extends Container {
     setTimeout(() => {
       const rocketFirework = new Rocket(
         this._screenCenter,
-        rocket.startPosition,
-        rocket.durationInMs,
         rocket.colour,
+        rocket.durationInMs,
+        rocket.startPosition,
         rocket.velocity
       );
 
       this.addChild(rocketFirework);
-      rocketFirework.moveFirework();
     }, rocket.beginAt);
   }
 }

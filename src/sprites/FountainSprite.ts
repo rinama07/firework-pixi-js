@@ -1,40 +1,29 @@
-import { Sprite, Texture } from "pixi.js";
+import { Sprite, Texture, Ticker } from "pixi.js";
 
 import { FOUNTAIN_TEXTURE_PATH } from "../constants/files";
-import { Coordinates } from "../types/coordinates";
 
-export class FountainSprite {
-  private _finalPosition: Coordinates;
-  private _sprite: Sprite;
+export class FountainSprite extends Sprite {
+  private _speed: number;
 
-  constructor(
-    screenCenter: Coordinates,
-    startsOn: Coordinates,
-    colour: number,
-    duration: number
-  ) {
-    const TEXTURE = Texture.from(FOUNTAIN_TEXTURE_PATH);
+  constructor(colour: number) {
+    super();
 
-    const speed = duration / 100;
+    this.texture = Texture.from(FOUNTAIN_TEXTURE_PATH);
+    this.tint = colour;
+    this.anchor.set(0.5);
+    this.scale.set(2.5);
+    this.position.x = 0;
+    this.position.y = 0;
 
-    this._sprite = Sprite.from(TEXTURE);
-    this._sprite.tint = colour;
-    this._sprite.anchor.set(0.5);
-    this._sprite.scale.set(2);
-    this._sprite.position.x = screenCenter.x + startsOn.x;
-    this._sprite.position.y = screenCenter.y + startsOn.y * -1;
+    this._speed = 0.01;
 
-    this._finalPosition = {
-      x: this._sprite.position.x,
-      y: this._sprite.position.y + speed * -1,
-    };
+    Ticker.shared.add(this.moveUp, this);
   }
 
-  get finalPosition(): Coordinates {
-    return this._finalPosition;
-  }
-
-  get sprite(): Sprite {
-    return this._sprite;
+  moveUp(): void {
+    if (this.alpha > 0) {
+      this.alpha -= this._speed;
+      this.position.y -= 2;
+    }
   }
 }

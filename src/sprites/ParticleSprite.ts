@@ -1,22 +1,32 @@
-import { Sprite, Texture } from "pixi.js";
+import { Sprite, Texture, Ticker } from "pixi.js";
 
 import { PARTICLE_TEXTURE_PATH } from "../constants/files";
-import { Coordinates } from "../types/coordinates";
 
-export class ParticleSprite {
-  private _sprite: Sprite;
+export class ParticleSprite extends Sprite {
+  private _direction: number;
 
-  constructor(startsOn: Coordinates, colour: number) {
-    const TEXTURE = Texture.from(PARTICLE_TEXTURE_PATH);
+  constructor(colour: number, direction: number) {
+    super();
 
-    this._sprite = Sprite.from(TEXTURE);
-    this._sprite.anchor.set(0.5);
-    this._sprite.tint = colour;
-    this._sprite.alpha = 1;
-    this._sprite.position.set(startsOn.x, startsOn.y);
+    this.alpha = 1;
+    this.anchor.set(0.5);
+    this.position.x = 0;
+    this.position.y = 0;
+    this.texture = Texture.from(PARTICLE_TEXTURE_PATH);
+    this.tint = colour;
+
+    this._direction = direction;
+
+    Ticker.shared.add(this.update, this);
   }
 
-  get sprite(): Sprite {
-    return this._sprite;
+  private update(): void {
+    if (this.alpha >= 0) {
+      this.alpha -= 0.1;
+
+      // move according to _direction
+      this.position.x -= this._direction * 1;
+      this.position.y -= this._direction * 1;
+    }
   }
 }
