@@ -3,9 +3,9 @@ import { Sprite, Texture, Ticker } from "pixi.js";
 import { FOUNTAIN_TEXTURE_PATH } from "../constants/files";
 
 export class FountainSprite extends Sprite {
-  private _speed: number;
+  _speed;
 
-  constructor(colour: number) {
+  constructor(colour) {
     super();
 
     this.texture = Texture.from(FOUNTAIN_TEXTURE_PATH);
@@ -20,7 +20,7 @@ export class FountainSprite extends Sprite {
     Ticker.shared.add(this.moveUp, this);
   }
 
-  moveUp(): void {
+  moveUp() {
     if (this.alpha > 0) {
       this.alpha -= this._speed;
       this.position.y -= 2;

@@ -2,48 +2,49 @@ import { Container, Ticker } from "pixi.js";
 
 import { ParticleSprite } from "./sprites/ParticleSprite";
 import { RocketSprite } from "./sprites/RocketSprite";
-import { Coordinates } from "./types/coordinates";
 
 export class Rocket extends Container {
-  private _colour: number;
-  private _finalPosition: Coordinates;
-  private _startPosition: Coordinates;
-  private _velocity: Coordinates;
+  _colour;
+  _finalPosition;
+  _startPosition;
+  _velocity;
 
-  private _isExploded: boolean = false;
-  private _shouldExplode: boolean = false;
+  _isExploded;
+  _shouldExplode;
 
   constructor(
-    center: Coordinates,
-    colour: number,
-    duration: number,
-    start: Coordinates,
-    velocity: Coordinates
+    center,
+    colour,
+    duration,
+    start,
+    velocity
   ) {
     super();
 
     this._colour = colour;
     this._velocity = velocity;
+    this._isExploded = false;
+    this._shouldExplode = false;
     this._startPosition = this.getStartPosition(center, start);
     this._finalPosition = this.getFinalPosition(duration, velocity);
 
     Ticker.shared.add(this.update, this);
   }
 
-  private getStartPosition(
-    center: Coordinates,
-    start: Coordinates
-  ): Coordinates {
+  getStartPosition(
+    center,
+    start
+  ) {
     return {
       x: center.x + start.x,
       y: center.y + start.y * -1,
     };
   }
 
-  private getFinalPosition(
-    duration: number,
-    velocity: Coordinates
-  ): Coordinates {
+  getFinalPosition(
+    duration,
+    velocity
+  ) {
     const position = this._startPosition;
     const speed = duration / 1000;
 
@@ -53,7 +54,7 @@ export class Rocket extends Container {
     };
   }
 
-  private initRocket(): void {
+  initRocket() {
     this._isExploded = false;
     this._shouldExplode = false;
 
@@ -64,7 +65,7 @@ export class Rocket extends Container {
     this.addChild(rocket);
   }
 
-  private moveRocket(): void {
+  moveRocket() {
     // rockets from left does not explode, why?
     const xInFinalPosition = this._finalPosition.x >= this.position.x;
     const yInFinalPosition = this._finalPosition.y >= this.position.y;
@@ -83,7 +84,7 @@ export class Rocket extends Container {
     }
   }
 
-  private explodeParticles(): void {
+  explodeParticles() {
     if (!this._isExploded) {
       for (let particleIndex = 0; particleIndex < 10; particleIndex++) {
         const particle = new ParticleSprite(this._colour, particleIndex);
@@ -95,7 +96,7 @@ export class Rocket extends Container {
     }
   }
 
-  private update(): void {
+  update() {
     if (!this.children.length && !this._shouldExplode) {
       this.initRocket();
       return;

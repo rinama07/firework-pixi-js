@@ -1,14 +1,13 @@
 import { Container } from "pixi.js";
 
 import { FountainSprite } from "./sprites/FountainSprite";
-import { Coordinates } from "./types/coordinates";
 
 export class Fountain extends Container {
   constructor(
-    center: Coordinates,
-    start: Coordinates,
-    duration: number, // I don't know how to use this yet
-    colour: number
+    center,
+    start,
+    duration, // I don't know how to use this yet
+    colour
   ) {
     super();
 

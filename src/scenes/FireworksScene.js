@@ -1,6 +1,5 @@
 import { Container } from "pixi.js";
 
-import { Coordinates } from "../types/coordinates";
 import { getType } from "../utils/getElementProperty";
 import { getFountain } from "../utils/getFountain";
 import { getRocket } from "../utils/getRocket";
@@ -9,13 +8,13 @@ import { Fountain } from "../Fountain";
 import { Rocket } from "../Rocket";
 
 export class FireworksScene extends Container {
-  private _screenCenter: Coordinates;
-  private _xmlFireworks: Element[];
+  _screenCenter;
+  _xmlFireworks;
 
   constructor(
-    screenHeight: number,
-    screenWidth: number,
-    xmlFireworks: Element[]
+    screenHeight,
+    screenWidth,
+    xmlFireworks
   ) {
     super();
 
@@ -30,8 +29,8 @@ export class FireworksScene extends Container {
     this.launchFireworks();
   }
 
-  launchFireworks(): void {
-    this._xmlFireworks.forEach((xmlFirework: Element) => {
+  launchFireworks() {
+    this._xmlFireworks.forEach((xmlFirework) => {
       const type = getType(xmlFirework);
 
       switch (type) {
@@ -49,7 +48,7 @@ export class FireworksScene extends Container {
     });
   }
 
-  launchFountain(xmlFirework: Element): void {
+  launchFountain(xmlFirework) {
     const fountain = getFountain(xmlFirework);
 
     setTimeout(() => {
@@ -64,7 +63,7 @@ export class FireworksScene extends Container {
     }, fountain.beginAt);
   }
 
-  launchRocket(xmlFirework: Element): void {
+  launchRocket(xmlFirework) {
     const rocket = getRocket(xmlFirework);
 
     setTimeout(() => {

@@ -1,10 +1,9 @@
 import { Sprite, Texture } from "pixi.js";
 
 import { ROCKET_TEXTURE_PATH } from "../constants/files";
-import { Coordinates } from "../types/coordinates";
 
 export class RocketSprite extends Sprite {
-  constructor(position: Coordinates, colour: number) {
+  constructor(position, colour) {
     super();
 
     this.anchor.set(0.5);
