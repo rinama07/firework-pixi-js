@@ -3,9 +3,9 @@ import { Sprite, Texture, Ticker } from "pixi.js";
 import { PARTICLE_TEXTURE_PATH } from "../constants/files";
 
 export class ParticleSprite extends Sprite {
-  private _direction: number;
+  _direction;
 
-  constructor(colour: number, direction: number) {
+  constructor(colour, direction) {
     super();
 
     this.alpha = 1;
@@ -20,7 +20,7 @@ export class ParticleSprite extends Sprite {
     Ticker.shared.add(this.update, this);
   }
 
-  private update(): void {
+  update() {
     if (this.alpha >= 0) {
       this.alpha -= 0.1;
 

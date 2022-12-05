@@ -10,10 +10,10 @@ const app = new Application({
   width: 1024,
 });
 
-const appElement = document.getElementById("app") as HTMLDivElement;
-appElement.appendChild(app.view as HTMLCanvasElement);
+const appElement = document.getElementById("app");
+appElement.appendChild(app.view);
 
-fetchXmlFireworks((xmlFireworks: Element[]): void => {
+fetchXmlFireworks((xmlFireworks) => {
   const scene = new FireworksScene(
     app.screen.height,
     app.screen.width,
